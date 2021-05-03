@@ -1,0 +1,103 @@
+<div class="row">
+    <div class="std-title">Students</div>
+</div>
+<div class="content-wrapper position-relative">
+    <div class="row">
+        <div class="col-md-12">
+            <kendo-fileselect #myFileSelect="kendoFileSelect" (select)="selectEventHandler($event, myFileSelect)">
+                <ng-template kendoFileSelectFileTemplate let-files let-state="state">
+                    <div>{{files[0].name}}</div>
+                    <button (click)="uploadFile(myFileSelect)" class="k-button"
+                        style="position: absolute; right: .6em;">
+                        Upload
+                    </button>
+                </ng-template>
+            </kendo-fileselect>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 btn-align-right">
+            <!-- <button kendoButton [primary]="true" (click)="addStudent()">Add</button> -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <kendo-grid [data]="gridView" [pageSize]="pageSize" [skip]="skip" [pageable]="true" [height]="430"
+                (pageChange)="pageChange($event)" [resizable]="true">
+                <kendo-grid-column title="Actions" width="100">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                        <span class="btn-align-left flex-child-none">
+                            <button kendoButton (click)="editStudent(dataItem)" [primary]="true" class="rounded-btn"
+                                title="Edit"><span class="k-icon k-i-edit"></span></button>
+                            <button kendoButton (click)="deleteStudent(dataItem.id)" [primary]="true"
+                                class="rounded-btn" title="Delete"><span class="k-icon k-i-delete"></span></button>
+                        </span>
+                    </ng-template>
+                </kendo-grid-column>
+                <kendo-grid-column field="name" title="Name">
+                </kendo-grid-column>
+                <kendo-grid-column field="birthday" title="Date of Birth">
+                    <ng-template kendoGridCellTemplate let-dataItem>
+                        {{dataItem.birthday | date: 'yyyy/MM/dd'}}
+                    </ng-template>
+                </kendo-grid-column>
+                <kendo-grid-column field="email" title="Email">
+                </kendo-grid-column>
+                <kendo-grid-column field="age" title="Age">
+                </kendo-grid-column>
+            </kendo-grid>
+        </div>
+    </div>
+</div>
+
+<kendo-dialog title="Save Student" *ngIf="isOpenSave" (close)="closeSave()" [minWidth]="250" [width]="450">
+    <div class="row">
+        <div class="col-md-4"><label>Name:</label></div>
+        <div class="col-md-8">
+            <input kendoTextBox [(ngModel)]="saveStudent.name" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4"><label>Date of Birth:</label></div>
+        <div class="col-md-8">
+            <kendo-datepicker [format]="'yyyy/MM/dd'" [(ngModel)]="saveStudent.birthday"></kendo-datepicker>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4"><label>Email:</label></div>
+        <div class="col-md-8">
+            <input kendoTextBox [(ngModel)]="saveStudent.email" />
+        </div>
+    </div>
+    <kendo-dialog-actions>
+        <button kendoButton (click)="studentSave()" primary="true">Save</button>
+    </kendo-dialog-actions>
+</kendo-dialog>
+
+<kendo-dialog title="Confirm" *ngIf="isOpenDelete" (close)="closeDelete('no')" [minWidth]="250" [width]="450">
+    <div class="row">
+        <div class="col-md-12">
+            Do you want to delete?
+        </div>
+    </div>
+    <kendo-dialog-actions>
+        <button kendoButton (click)="closeDelete('no')">No</button>
+        <button kendoButton (click)="closeDelete('yes')" primary="true">Yes</button>
+    </kendo-dialog-actions>
+</kendo-dialog>
+
+<kendo-dialog title="{{msgModalTitle}}" *ngIf="isOpenMsgModal" (close)="closeMsgModal()" [minWidth]="250" [width]="450">
+    <p class="msg-wrap">{{message}}</p>
+    <kendo-dialog-actions>
+        <button kendoButton (click)="closeMsgModal()" primary="true">OK</button>
+    </kendo-dialog-actions>
+</kendo-dialog>
+
+<div class="k-loading-panel" *ngIf="loadingPanelVisible">
+    <div class="k-loading-panel-mask"></div>
+    <div class="k-loading-panel-wrapper">
+        <kendo-loader [type]="'converging-spinner'" [themeColor]="'info'" [size]="'large'">
+        </kendo-loader>
+        <div class="k-loading-panel-text">Loading...</div>
+    </div>
+</div>

@@ -1,0 +1,173 @@
+/* // Global */
+
+body, html {
+    color: #000000 !important;
+    width: 100%;
+    height: 100%;
+    padding-bottom: 15px;
+    background: #f0f0f0 !important;
+    font-family: "Helvetica", Arial, sans-serif !important;
+}
+
+* {
+    font-size: 0.85rem !important;
+    box-sizing: border-box;
+}
+
+.std-title {
+    background-color: #368ac0;
+    width: 100%;
+    padding: 5px 15px;
+    color: #ffffff;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.content-wrapper {
+    background-color: #ffffff;
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+    padding: 15px;
+    margin-top: 15px;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.k-widget button.rounded-btn {
+    width: 24px;
+    height: 24px;
+    padding: 0 !important;
+    border-radius: 20px;
+    font-size: 0.8rem !important;
+}
+
+.k-widget .k-button.k-state-disabled:focus.rounded-btn, .k-widget .k-button.k-state-disabled:hover.rounded-btn, .k-widget .k-button[disabled].rounded-btn, .k-widget [disabled] .k-button.rounded-btn {
+    background-color: #a8a8a8 !important;
+    border-color: #a8a8a8 !important;
+}
+
+.k-button {
+    background-color: #a8a8a8 !important;
+    color: #ffffff !important;
+    border-color: #a8a8a8 !important;
+    background-image: none !important;
+    padding: 6px 12px !important;
+}
+
+.k-button.k-primary {
+    background-color: #368ac0 !important;
+    color: #ffffff !important;
+    border-color: #368ac0 !important;
+    background-image: none !important;
+}
+
+.btn-align-right, .btn-align-left {
+    display: flex;
+    align-items: center;
+}
+
+.btn-align-right {
+    justify-content: flex-end;
+}
+
+.btn-align-right>* {
+    margin-left: 5px !important;
+}
+
+.btn-align-left {
+    justify-content: flex-start;
+}
+
+.btn-align-left>* {
+    margin-right: 5px !important;
+}
+
+.k-widget .k-dialog-titlebar {
+    background-color: #ffffff !important;
+    color: #000000 !important;
+}
+
+.k-window-title {
+    line-height: normal !important;
+}
+
+.k-dialog-close {
+    color: #000000 !important;
+}
+
+.k-input.k-textbox.k-state-focus, .k-input.k-textbox:focus, .k-textarea.k-state-focus, .k-textarea:focus, .k-textbox.k-state-focus, .k-textbox:focus {
+    box-shadow: 0 2px 4px 0 rgba(255, 99, 88, 0.4) !important;
+}
+
+.k-input.k-textbox, .k-textarea, .k-textbox {
+    font-size: 0.85rem !important;
+    padding: 0 4px;
+}
+
+.k-input.k-textbox, .k-textbox {
+    height: calc(1.42857em + 7px) !important;
+    border-radius: 0 !important;
+}
+
+.k-input::selection, .k-textarea::selection, .k-textbox::selection {
+    background-color: #368ac0 !important;
+}
+
+.k-autocomplete, .k-combobox, .k-dateinput, .k-datepicker, .k-datetimepicker, .k-dropdown, .k-maskedtextbox, .k-multiselect, .k-numerictextbox, .k-timepicker, .k-input.k-textbox, .k-textarea, .k-textbox {
+    width: 100% !important;
+}
+
+.row+.row {
+    margin-top: 5px;
+}
+
+.k-upload .k-upload-files .k-file {
+    padding: 8px 8px 10px;
+    border-width: 0 0 1px;
+    border-style: solid;
+    outline: none;
+    display: flex;
+    align-items: flex-start;
+    position: relative;
+    height: 46px;
+}
+
+.msg-wrap {
+    white-space: pre-line;
+}
+
+/* Loader Panel Styles */
+
+.k-loading-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.k-loading-panel-mask {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #000000;
+    opacity: 0.3;
+}
+
+.k-loading-panel-wrapper {
+    position: relative;
+    z-index: 2;
+}
+
+.k-loading-panel-text {
+    margin-top: 20px;
+    text-align: center;
+    color: #0058e9;
+}

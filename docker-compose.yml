@@ -1,0 +1,83 @@
+version: "3.8"
+services:
+    api:
+        # image: thomas-oliver/nestjs-dockerized 
+        build:
+            context: ./backend/api
+            dockerfile: Dockerfile
+        depends_on: 
+            - redis
+        # environment: 
+        #     DATABASE_URL: postgres://user:password@postgres:5432/db
+        #     NODE_ENV: development
+            # PORT: 6464
+        ports:
+            - "8877:8877"
+    microservice:
+        # image: thomas-oliver/nestjs-dockerized 
+        build:
+            context: ./backend/microservice
+            dockerfile: Dockerfile
+        depends_on: 
+            - postgres
+            - postgraphile
+        # environment: 
+        #     DATABASE_URL: postgres://user:password@postgres:5432/db
+        #     NODE_ENV: development
+        #     PORT: 8081
+        ports:
+            - "8876:8876"
+
+    redis:
+        image: "redis:alpine"
+        # command: redis-server --requirepass sOmE_sEcUrE_pAsS
+        ports:
+        - "6379:6379"
+        environment:
+            - ALLOW_EMPTY_PASSWORD=yes
+    
+    postgres:
+        image: postgres:10.4
+        ports:
+            - "5432:5432"
+        environment: 
+            POSTGRES_USER: user
+            POSTGRES_PASSWORD: password
+            POSTGRES_DB: db
+            PG_DATA: var/lib/postgresql/data
+        
+    #image for postgres admin ui
+    pgadmin:
+        image: dpage/pgadmin4
+        ports:
+        - 5433:80
+        environment:
+        - PGADMIN_DEFAULT_EMAIL=user@gmail.com
+        - PGADMIN_DEFAULT_PASSWORD=password
+
+    postgraphile:
+        image: postgraphile
+        build:
+            context: .
+            dockerfile: Dockerfile
+        depends_on:
+            - postgres
+        ports:
+            - 5434:5434
+        command: ["--connection", "postgres://user:password@postgres:5432/db", "--port", "5434", "--schema", "public"]       
+            
+    client:
+        # image: thomas-oliver/nestjs-dockerized 
+        build:
+            context: ./frontend/client
+            dockerfile: Dockerfile
+        # depends_on: 
+        #     - postgres
+        #     - postgraphile
+        # environment: 
+        #     DATABASE_URL: postgres://user:password@postgres:5432/db
+        #     NODE_ENV: development
+        #     PORT: 8081
+        ports:
+            - "4200:4200"
+    
